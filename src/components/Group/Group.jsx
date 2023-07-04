@@ -2,6 +2,7 @@ import { useLiveQuery } from 'dexie-react-hooks'
 import React from 'react'
 import {Link, useParams} from 'react-router-dom'
 import { db } from '../../db'
+import MembersList from '../Members/MembersList'
 import TransactionList from '../Transactions/TransactionList'
 
 const Group = () => {
@@ -16,6 +17,7 @@ const Group = () => {
             <p> {group.members.length} Members</p>
             </div>
           <Link to={`/groups/${id}/transaction/add`}> Add Transaction</Link>
+          <MembersList group={group}/>
           <TransactionList id={group.id}/>
           </>
         )
