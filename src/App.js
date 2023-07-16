@@ -16,8 +16,7 @@ export default function App() {
 <>
     <Navbar/>
     <Routes>
-      <Route index element={<HomePage/>}/>
-      <Route path='/groups' element={<GroupList/>}/>
+      <Route index path='/groups' element={<GroupList/>}/>
       <Route path='/groups/create' element={<CreateGroup/>}/>
       <Route path='/groups/:id' element={<Group/>}/>
       <Route path='/groups/:id/transaction/add' element={<CreateTransaction/>}/>

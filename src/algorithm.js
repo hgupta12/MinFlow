@@ -1,5 +1,3 @@
-const graph = new Map()
-
 let netChange =  [
     ["Evans", -10],
     ["Cherie",-5],
@@ -26,7 +24,6 @@ let netChange =  [
 // })
 // console.log(subset2)
 
-const possibleSubsets = []
 const findSubsets = (subset,netChange,output, sum,index) =>{
     if(index == netChange.length){
         if(sum == 0 && output.length != 0) subset.push(output);
@@ -37,7 +34,6 @@ const findSubsets = (subset,netChange,output, sum,index) =>{
     findSubsets(subset,netChange,[...output], sum + netChange[index][1], index+1);
 }
 
-let transactions = []
 const findMinTransactions = (netChange,output)=>{
     if(netChange.length == 0){
         if(output.length > transactions.length){
@@ -51,7 +47,7 @@ const findMinTransactions = (netChange,output)=>{
         findMinTransactions(remaining,[...output,subset])
     })
 }
-
+let transactions = []
 findMinTransactions(netChange,[])
 transactions.forEach(transaction => console.log(transaction))
 

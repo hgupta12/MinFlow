@@ -27,6 +27,7 @@ const MembersList = ({group}) => {
           <hr />
         </div>
       ))}
+      <SimplifyDebt members={members}/>
     </div>
   )
 }
