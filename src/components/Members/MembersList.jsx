@@ -1,5 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import SimplifyDebt from '../SimplifyDebt'
+
+const Member = ({member}) =>{
+  const balanceClass = member.netBalance == 0? "":
+   member.netBalance < 0? "text-green-600":"text-red-500"
+  return (
+    <div className=" py-2 px-4 mb-1 flex items-center justify-between text-lg">
+    <p>{member.name}</p>
+    <p className={`text-xl font-semibold ${balanceClass}`}> &#8377; {Math.abs(member.netBalance)}</p>
+  </div>
+  )
+}
 const MembersList = ({group}) => {
   const [members, setMembers] = useState([])
 
@@ -18,16 +29,12 @@ const MembersList = ({group}) => {
     console.log(list)
     setMembers(list)
   },[group])
+
   return (
     <div>
-      <h1>Members List</h1>
       {members.map(member=>(
-        <div key={member.name}>
-          <p>{member.name} = {member.netBalance}</p>
-          <hr />
-        </div>
+       <Member key={member.name} member={member}/>
       ))}
-      <SimplifyDebt members={members}/>
     </div>
   )
 }

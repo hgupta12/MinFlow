@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from './Button';
 import MaxHeap from './MaxHeap';
 import MinHeap from './MinHeap';
 
@@ -59,7 +60,7 @@ const SimplifyDebt = ({members}) => {
         console.log(transactions)
     }
   return (
-    <button onClick={handleClick}>SimplifyDebt</button>
+    <Button onClick={handleClick} plain full style="dark">Simplify Debt</Button>
   )
 }
 

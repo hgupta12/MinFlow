@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import {db} from '../../db'
-import {Navigate, useNavigate} from 'react-router-dom'
+import { useNavigate} from 'react-router-dom'
+import Button from '../Button'
+import Heading from '../Heading'
+import Input from '../Input'
 
 const CreateGroup = () => {
     const [name, setName] = useState("")
@@ -31,13 +34,19 @@ const CreateGroup = () => {
 
     }
   return (
-    <>
-        <form onSubmit={handleSubmit}>
-            <input type="text" placeholder='Group Name...' onChange={e=> setName(e.target.value)}/>
-            <input type="text" placeholder='Members' onChange={e=> setMembers(e.target.value)}/>
-            <button type="submit">Save</button>
+    <section className='mx-2'>
+      <div className='flex justify-end'>
+        <Button style="dark" onClick={()=>navigate(-1)} plain> Back</Button>
+      </div>
+      <div className='mt-4'>
+        <Heading content={"create group"}/>
+        <form onSubmit={handleSubmit} className="mt-6">
+            <Input type="text" placeholder="Name" onChange={e=> setName(e.target.value)}/>
+            <Input type="textarea" placeholder="Enter member names (space seperated)" onChange={e=> setMembers(e.target.value)}/>
+            <Button type="submit" style="dark" full plain>Save</Button>
         </form>
-    </>
+      </div>
+    </section>
   )
 }
 

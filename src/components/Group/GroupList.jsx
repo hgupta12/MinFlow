@@ -13,7 +13,7 @@ const GroupList = () => {
     <section className='mx-2 pt-2'>
     <div className='flex items-center justify-between mb-4'>
     <Heading content="groups"/>
-      <Button type="light" onClick={()=>{navigate('/groups/create')}}>
+      <Button style="light" type="button" onClick={()=>{navigate('/groups/create')}}>
         <img src="/add.svg" alt="Add" className='w-4' />
       </Button>
     </div>
