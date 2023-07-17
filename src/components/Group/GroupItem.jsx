@@ -10,15 +10,16 @@ const GroupItem = ({group}) => {
     })
   }  
   return (
-    <div>
-      <div>
+    <div className='mb-4 bg-slate-800 p-3 rounded-lg text-white'>
+      <div className='flex items-center justify-between mb-2'>
         <Link to={`/groups/${group.id}`}>
-          <h1> {group.name} </h1>
+          <h3 className='uppercase font-medium tracking-wider'> {group.name} </h3>
         </Link>
-        <p> </p>
-        <p> {group.members.length} </p>
-        <button onClick={handleDelete}>Delete</button>
+        <button onClick={handleDelete}>
+          <img src="/trash.svg" alt="Delete" className='w-4 text-white' />
+        </button>
       </div>
+        <p className='text-sm font-light'> {group.members.length} members </p>
     </div>
   )
 }
