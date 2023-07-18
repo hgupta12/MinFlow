@@ -7,8 +7,8 @@ import GroupList from './components/Group/GroupList';
 
 import CreateTransaction from './components/Transactions/CreateTransaction';
 
-import HomePage from './components/HomePage';
 import Navbar from './components/Navbar';
+import FinalTransactions from './components/FinalTransactions';
 
 export default function App() {
   
@@ -20,6 +20,7 @@ export default function App() {
       <Route path='/groups/create' element={<CreateGroup/>}/>
       <Route path='/groups/:id' element={<Group/>}/>
       <Route path='/groups/:id/transaction/add' element={<CreateTransaction/>}/>
+      <Route path='/groups/transaction/simple' element={<FinalTransactions/>}/>
     </Routes>
 </>
   )

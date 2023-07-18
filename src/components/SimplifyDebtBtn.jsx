@@ -1,9 +1,11 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import Button from './Button';
 import MaxHeap from './MaxHeap';
 import MinHeap from './MinHeap';
 
-const SimplifyDebt = ({members}) => {
+const SimplifyDebtBtn = ({members}) => {
+    const navigate = useNavigate();
     const handleClick = ()=>{
         // finding all possible subsets of the given array
         const findSubsets = (subset,netChange,output, sum,index) =>{
@@ -20,7 +22,7 @@ const SimplifyDebt = ({members}) => {
         const findMinTransactions = (netChange,output)=>{
             if(netChange.length == 0){
                 if(output.length > groups.length){
-                    groups = output
+                    groups = [...output]
                 }
             }
             const possibleSubsets = []
@@ -45,7 +47,6 @@ const SimplifyDebt = ({members}) => {
             while(!givers.isEmpty() && !recievers.isEmpty()){
                 let giver = givers.extractMax();
                 let reciever = recievers.extractMin();
-                console.log(giver,reciever);
                 if(giver.netBalance == reciever.netBalance){
                     transactions.push({giver:giver.name,reciever:reciever.name,amount: giver.netBalance});
                 }else if(giver.netBalance < -reciever.netBalance){
@@ -57,11 +58,11 @@ const SimplifyDebt = ({members}) => {
                 }
             }
         })
-        console.log(transactions)
+        navigate('/groups/transaction/simple',{state:transactions})
     }
   return (
     <Button onClick={handleClick} plain full style="dark">Simplify Debt</Button>
   )
 }
 
-export default SimplifyDebt
+export default SimplifyDebtBtn

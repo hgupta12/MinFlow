@@ -1,10 +1,10 @@
 import { useLiveQuery } from 'dexie-react-hooks'
-import React, { useState } from 'react'
-import {Link, useNavigate, useParams} from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import {useNavigate, useParams} from 'react-router-dom'
 import { db } from '../../db'
 import Button from '../Button'
 import MembersList from '../Members/MembersList'
-import SimplifyDebt from '../SimplifyDebt'
+import SimplifyDebtBtn from '../SimplifyDebtBtn'
 import TransactionList from '../Transactions/TransactionList'
 
 const Group = () => {
@@ -12,6 +12,26 @@ const Group = () => {
     const navigate = useNavigate()
     const group = useLiveQuery(() => db.groups.get(parseInt(id)),[id])
     const [list,setList] = useState(true)
+
+    const [members, setMembers] = useState([])
+
+  useEffect(()=>{
+    const list = []
+    if(group){
+      const graph = group.graph
+      group.members.forEach(member=>{
+        if(graph.has(member)){
+          let net = 0
+        for(let [_,amount] of graph.get(member)){
+          net += amount
+        }
+        list.push({name:member, netBalance: net})
+        }else list.push({name:member,netBalance: 0})
+      })
+      setMembers(list)
+    }
+  },[group])
+
   return (
     <>{
         group && (
@@ -28,9 +48,9 @@ const Group = () => {
               <button className={`flex-grow ${list && 'bg-gray-300'} p-1 border-r-2 border-r-black border-b-2 border-b-black`} onClick={()=> setList(true)}>Members</button>
               <button className={`flex-grow ${!list && 'bg-gray-300'} p-1  border-b-2 border-b-black`} onClick={()=> setList(false)}>History</button>
             </div>
-          {list? <MembersList group={group}/> : <TransactionList id={group.id}/>}
+          {list? <MembersList members={members}/> : <TransactionList id={group.id}/>}
             </div>
-          <SimplifyDebt members={group.members}/>
+          <SimplifyDebtBtn members={members}/>
           </section>
         )
     }
