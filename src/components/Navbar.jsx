@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 const Navbar = () => {
   return (
     <nav className='mx-2 my-1 flex items-center justify-between'>
-      <Link to="/">
+      <Link to="/groups">
         <h1 className='text-3xl font-bold'>MinFlow</h1>
       </Link>
       <div

@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { db } from "../../db";
+import Button from "../Button";
+import Heading from "../Heading";
 
 const CreateTransaction = () => {
   const { id } = useParams();
+  const navigate = useNavigate()
   const [options, setOptions] = useState([]);
   const [selectedPayer, setSelectedPayer] = useState(null);
   const [selectedPayees, setSelectedPayees] = useState([]);
@@ -70,17 +73,22 @@ const CreateTransaction = () => {
           }
         })
         await db.groups.update(parseInt(id),{graph})
-        console.log(graph)
+
       })
-      console.log("Transaction added!")
+      navigate(`/groups/${id}`)
     } catch (error) {
       console.log(error)
     }
   };
   return (
-    <>
-      <div>Add Transaction</div>
+    <section className="mx-2 mt-6">
+      <div className='flex justify-end'>
+        <Button style="dark" onClick={()=>navigate(-1)} plain> Back</Button>
+      </div>
+      <Heading content={"add expense"}/>
       {options && (
+        <div className="mt-6">
+
         <form onSubmit={handleSubmit}>
           <Select
             defaultValue={selectedPayer}
@@ -88,28 +96,30 @@ const CreateTransaction = () => {
             options={options}
             value={selectedPayer}
             placeholder="Select Payer"
-            className="w-40"
+            className="mb-4"
             isSearchable={true}
-          />
+            />
           <Select
             defaultValue={selectedPayees}
             onChange={setSelectedPayees}
             options={options}
             value={selectedPayees}
             placeholder="Select Payee(s)"
-            className="w-48"
             isSearchable={true}
+            className="mb-4"
             isMulti
-          />
+            />
           <input
-            type="number"
+            inputmode="numeric" pattern="[0-9]*" type="text"
             placeholder="Amount..."
             onChange={(e) => setAmount(parseInt(e.target.value))}
+            className="w-full outline-none p-2 border border-1 border-gray-300 rounded-md mb-4"
           />
-          <button type="submit">Add</button>
+          <Button type="submit" full plain style="dark">Add</Button>
         </form>
+            </div>
       )}
-    </>
+    </section>
   );
 };
 
